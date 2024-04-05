@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import AddProject from './AddProject'
 import { Col, Row } from 'react-bootstrap';
-import { getUserProjectAPI } from '../services/allAPIs';
+import { deleteUserProjectAPI, getUserProjectAPI } from '../services/allAPIs';
 import { addProjectResponseContext, editUserProjectResponseContext } from '../ContextApi/ContextShare';
 import Edit from './Edit'
 function MyProject() {
@@ -47,10 +47,39 @@ const allUserProjects = async() =>{
     allUserProjects()
   }, [addProjectRes  ,editUserProjectRes   ])
 
+  const deleteProject = async (pid) => {
+
+    const token = sessionStorage.getItem("token")
+    console.log(token);
+
+    if (token) {
+      const reqHeader = {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      }
+      try {
+        const result = await deleteUserProjectAPI(pid, reqHeader)
+        console.log(result);
+        if (result.status == 200) {
+          // toast.error("Project deleted successfully")
+          alert("Project Deleted Successfully")
+          //to display rest of the projects after deleting
+          allUserProjects()
+        }
+      }
+      catch (err) {
+        console.log("Cannot Delete Project");
+        alert("Failed to delete Project")
+      }
+
+
+    }
+  }
+
     return (
         <div className='container'>
             <h3>My Project</h3>
-            <div className='ms-auto'>
+            <div className='ms-auto me-5'>
           {/* Add projects */}
           <AddProject />
         </div>
@@ -64,8 +93,8 @@ const allUserProjects = async() =>{
                                 <h5 className='text-center mt-5 ms-4'>{item.title}</h5>
                                 <div className='btn'>
                                     <button className='btn btn-primary m-2'><Edit project={item}/> </button>
-                                    <button className='btn btn-secondary m-2'><i className='fa-brands fa-github'></i></button>
-                                    <button className='btn btn-danger m-2'><i class="fa-solid fa-trash"></i></button>
+                                    <a href={item?.github} target="_blank" ><button className='btn btn-secondary m-2'><i className='fa-brands fa-github'></i></button></a>
+                                    <button className='btn btn-danger m-2' onClick={() => deleteProject(item?._id)}><i class="fa-solid fa-trash"></i></button>
                                 </div >
                             </div>
                         ))

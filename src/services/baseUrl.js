@@ -1,1 +1,1 @@
-export const baseUrl = "http://localhost:4000"
+export const baseUrl = "https://project-fair-backend-8ptc.onrender.com"

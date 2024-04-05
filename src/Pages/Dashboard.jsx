@@ -30,7 +30,7 @@ function Dashboard() {
 
             <Link to='/projects'>
               <div className='text-center'>
-                <button className='btn btn-outline-light m-4 shadow '>View Projects</button>
+                <button className='btn btn-outline-primary m-4 shadow '>View Projects</button>
               </div>
             </Link>
 
