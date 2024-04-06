@@ -49,13 +49,14 @@ function ProjectCard({project}) {
         </Row>
       </Modal.Body>
       <Modal.Footer className='d-flex justify-content-evenly'>
-      <a href="">
-<i class="fa-brands fx-2 fa-github fa-beat-fade text-dark"></i>
-          </a>
-          <a href=""
-          >
+      <Button target='_blank' href={`${project?.github}`} variant="secondary">
+      <i class="fa-brands fx-2 fa-github fa-beat-fade text-dark"></i>
+      </Button>
+
+          
+      <Button target='_blank' href={`${project?.link}`} variant="primary" >
             <i class="fa-solid fa-link fa-beat-fade "></i>
-          </a>
+          </Button>
       </Modal.Footer> 
     </Modal>
     </div>

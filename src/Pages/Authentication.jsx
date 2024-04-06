@@ -15,13 +15,15 @@ function Authentication({ register }) {
   const [userData, setUserData] = useState({
     username: "",
     email: "",
-    password: ""
+    password: "",
+    github:" ",
+    link:" "
   })
 
 //register
   const registerData=async()=>{
-    const {username,email,password} = userData
-    if(!username || !email || !password){
+    const {username,email,password,github,link} = userData
+    if(!username || !email || !password || !github || !link){
       alert('please fill the form ;)')
     }
     else{
@@ -91,7 +93,11 @@ const loginData = async()=>{
             <form>
               {
                 isRegisterfrom &&
+                <>
                 <input type="text" value={userData.username} onChange={e=>setUserData({...userData, username: e.target.value})} className='form-control mb-3' placeholder='Enter Name' />
+                <input type="text" value={userData.github} onChange={e => setUserData({ ...userData, github: e.target.value })} placeholder='github link' className='form-control mb-3' />
+                <input type="text" value={userData.link} onChange={e => setUserData({ ...userData, link: e.target.value })} placeholder='Linkedin link' className='form-control mb-3' />
+                </>
               }
               <input type="text" value={userData.email} onChange={e=>setUserData({...userData,email:e.target.value})} className='form-control mb-3' placeholder='Enter email' />
               <input type="text" value={userData.password} onChange={e=>setUserData({...userData,password:e.target.value})}  className='form-control mb-3' placeholder='Enter password' />

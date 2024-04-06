@@ -82,7 +82,7 @@ const{addProjectRes,setAddProjectRes} = useContext(addProjectResponseContext)
   }
   return (
     <div>
-      <button className='btn btn-success' onClick={handleShow}>Add project</button>
+      <button className='btn btn-success me-4 ' onClick={handleShow}>Add project</button>
       <Modal
         show={show}
         onHide={handleClose}
