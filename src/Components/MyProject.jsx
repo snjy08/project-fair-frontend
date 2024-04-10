@@ -79,7 +79,7 @@ const allUserProjects = async() =>{
     return (
         <div className='container'>
             <h3>My Project</h3>
-            <div className='ms-auto me-5'>
+            <div className='me-auto ex-5 d-flex justify-content-end '>
           {/* Add projects */}
           <AddProject />
         </div>

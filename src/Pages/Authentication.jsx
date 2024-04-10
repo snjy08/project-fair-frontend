@@ -6,58 +6,61 @@ import {
   MDBNavbar,
   MDBNavbarBrand
 } from 'mdb-react-ui-kit';
+import axios from 'axios';
+
+
 function Authentication({ register }) {
   const location = useNavigate()
 
   const isRegisterfrom = register ? true : false
 
-  //state creation-
-  const [userData, setUserData] = useState({
-    username: "",
-    email: "",
-    password: "",
-    github:" ",
-    link:" "
-  })
-
+ //state creation-
+ const [userData, setUserData] = useState({
+  username: "",
+  email: "",
+  password: "",
+  github: " ",
+  link: " "
+})
+console.log(userData);
 //register
-  const registerData=async()=>{
-    const {username,email,password,github,link} = userData
-    if(!username || !email || !password || !github || !link){
-      alert('please fill the form ;)')
-    }
-    else{
-      //apicall
-      const result = await registerAPI(userData)
-      console.log(result);
-      if(result.status == 200){
-        //api call
-        alert(`${result.data}`)
-        location('/login')
-       
-      }
-      else{
-        alert(result.response.data)
-      }
-    }
-    console.log(userData);
+const registerData = async () => {
+  const { username, email, password, github, link } = userData
+  if (!username || !email || !password || !github || !link) {
+    alert('please fill the form ;)')
   }
+  else {
+    //apicall
+    const result = await axios.post('http://localhost:4000/register',userData)
+    console.log(result);
+    if (result.status == 201) {
+      //api call
+      alert('User Register Successfull')
+      location('/login')
+
+    }
+    else {
+      alert(result.response.data)
+    }
+  }
+  console.log(userData);
+}
 
 //login function
-const loginData = async()=>{
-  const {email,password} = userData;
+const loginData = async () => {
+  const { email, password } = userData;
   if (!email || !password) {
     alert("please enter valid details")
   }
-  else{
-    const result = await loginAPI(userData)
+  else {
+    const result = await axios.post('http://localhost:4000/login',userData)
     console.log(result);
-   if(result.status == 200){
-    alert("login successfull")
-    sessionStorage.setItem("existingUser",JSON.stringify(result.data.existingUser))
-    sessionStorage.setItem("token",result.data.token)
-    location("/dashboard")
-   }
+    if (result.status == 200) {
+      alert("login successfull")
+      sessionStorage.setItem("existingUser", JSON.stringify(result.data.existingUser))
+      sessionStorage.setItem("token", result.data.token)
+      location("/dashboard")
+    }
   }
 }
   return (
@@ -95,8 +98,8 @@ const loginData = async()=>{
                 isRegisterfrom &&
                 <>
                 <input type="text" value={userData.username} onChange={e=>setUserData({...userData, username: e.target.value})} className='form-control mb-3' placeholder='Enter Name' />
-                <input type="text" value={userData.github} onChange={e => setUserData({ ...userData, github: e.target.value })} placeholder='github link' className='form-control mb-3' />
-                <input type="text" value={userData.link} onChange={e => setUserData({ ...userData, link: e.target.value })} placeholder='Linkedin link' className='form-control mb-3' />
+                <input type="text" value={userData.github} onChange={e => setUserData({ ...userData, github: e.target.value })}  className='form-control mb-3' placeholder='github link' />
+                <input type="text" value={userData.link} onChange={e => setUserData({ ...userData, link: e.target.value })}  className='form-control mb-3' placeholder='linkedin link'  />
                 </>
               }
               <input type="text" value={userData.email} onChange={e=>setUserData({...userData,email:e.target.value})} className='form-control mb-3' placeholder='Enter email' />
