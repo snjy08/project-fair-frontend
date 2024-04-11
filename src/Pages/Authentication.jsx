@@ -31,7 +31,7 @@ const registerData = async () => {
   }
   else {
     //apicall
-    const result = await axios.post('http://localhost:4000/register',userData)
+    const result = await axios.post('https://project-fair-backend-8ptc.onrender.com/register',userData)
     console.log(result);
     if (result.status == 201) {
       //api call
@@ -53,7 +53,7 @@ const loginData = async () => {
     alert("please enter valid details")
   }
   else {
-    const result = await axios.post('http://localhost:4000/login',userData)
+    const result = await axios.post('https://project-fair-backend-8ptc.onrender.com/login',userData)
     console.log(result);
     if (result.status == 200) {
       alert("login successfull")
